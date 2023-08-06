@@ -20,6 +20,8 @@
     "passport": "^0.5.2",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
-    "pg": "^8.7.3"
+    "pg": "^8.7.3",
+    "shortid": "^2.2.16",
+    "sql-migrations": "^1.0.7"
   }
 }

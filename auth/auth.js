@@ -8,7 +8,7 @@ const email = check('email').isEmail().withMessage('Please provide a valid email
 
 const emailExists = check('email').custom(async (value) => {
     const { rows } = await db.query('SELECT * from users where email = $1', 
-      [value]
+        [value]
     )
 
     if (rows.length) {

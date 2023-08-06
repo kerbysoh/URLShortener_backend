@@ -3,21 +3,6 @@ const { hash } = require('bcryptjs')
 const { sign } = require('jsonwebtoken')
 const { SECRET } = require('../constants')
 
-exports.getUsers = async (req, res) => {
-    try {
-        const { rows } = await db.query('select id, email from users')
-        return res.status(200).json({
-            success: true,
-            users: rows
-        })
-    } catch (err) {
-        console.log(err.message)
-        return res.status(500).json({
-            error: err.message
-        })
-    }
-}
-
 exports.register = async (req, res) => {
     const {email,password} = req.body
     try {
@@ -35,7 +20,7 @@ exports.register = async (req, res) => {
     }
 }
 
-exports.login = async (req,res) => {
+exports.login = async (req, res) => {
     let user = req.user
     let payload = {
         id: user.id,
@@ -44,10 +29,10 @@ exports.login = async (req,res) => {
     try {
         const token = await sign(payload, SECRET)
         return res.status(200).cookie('token', token, {httpOnly: true}).json({
-           success: true,
-           message: "Logged in successfully.",
-           id: user.id,
-           email: user.email
+            success: true,
+            message: "Logged in successfully.",
+            id: user.id,
+            email: user.email
         })
     } catch (err) {
         return res.status(500).json({
@@ -78,6 +63,19 @@ exports.logout = async (req, res) => {
     } catch (err) {
         return res.status(500).json({
             error: err.message,
+        })
+    }
+}
+
+exports.protected = async (req, res) => {
+    try {
+        return res.status(200).json({
+            info: 'protected info'
+        })
+    } catch (err) {
+        console.log(err.message)
+        return res.status(500).json({
+            error: err.message
         })
     }
 }
