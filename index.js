@@ -20,7 +20,7 @@ app.use(passport.initialize())
 
 app.post("/links", userAuth, addLink)
 app.delete("/links/:linkid", userAuth, deleteLink)
-app.get('/links/:shortCode', userAuth, shortenURL)
+app.get('/links/:shortCode', shortenURL)
 app.get('/users/:userid/links', userAuth, getLinks)
 
 app.post('/register', registerValidation, validationMiddleware, register)
